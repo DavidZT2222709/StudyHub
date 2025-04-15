@@ -16,7 +16,7 @@
 
 # Acceso a usuarios API
 
-http://127.0.0.1:8000/api/usuarios/registro/
+    http://127.0.0.1:8000/api/usuarios/registro/
 http://127.0.0.1:8000/api/token/
 http://127.0.0.1:8000/api/usuarios/lista/
 
