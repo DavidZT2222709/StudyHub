@@ -31,3 +31,5 @@ http://127.0.0.1:8000/api/cursos/cursos/
 # Notas
 
 Se pueden agregar cursos y usuarios directamente desde el panel de administrador
+
+HOLAAAAAAAAAAAAAAAA
