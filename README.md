@@ -31,3 +31,6 @@ http://127.0.0.1:8000/api/cursos/cursos/
 # Notas
 
 Se pueden agregar cursos y usuarios directamente desde el panel de administrador
+
+# Steven 
+Revise los cambios hechos dentro del admin ya se pueden matricular ciertos usuarios en algún curso 
