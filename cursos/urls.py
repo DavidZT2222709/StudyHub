@@ -1,10 +1,11 @@
+from django.urls import path,include
 from rest_framework import routers
-from django.urls import path, include
-from cursos import views
+from .views import CursoView, InscripcionCursoView
 
 router = routers.DefaultRouter()
-router.register(r'cursos', views.CursoView, 'cursos')
+router.register(r'cursos', CursoView, 'cursos')
 
 urlpatterns = [
-    path('cursos/', include(router.urls))
+    path('cursos/', include(router.urls)),
+   path('<int:curso_id>/inscribirse/', InscripcionCursoView.as_view(), name='inscribirse-curso'),
 ]
