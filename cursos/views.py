@@ -1,10 +1,10 @@
-from rest_framework import generics, permissions, viewsets
+from rest_framework import generics, permissions
 from .models import Curso, Inscripcion
 from .serializers import CursoSerializer, InscripcionSerializer
 
 # Create your views here.
 
-class CursoView(viewsets.ViewSet):
+class CursoView(generics.ListAPIView):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
     permission_classes = [permissions.AllowAny]
