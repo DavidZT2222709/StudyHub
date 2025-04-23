@@ -1,6 +1,6 @@
-from rest_framework import generics, permissions
-from .models import Curso, Inscripcion
-from .serializers import CursoSerializer, InscripcionSerializer
+from rest_framework import generics, permissions, viewsets
+from .models import Curso, Inscripcion, Leccion
+from .serializers import CursoSerializer, InscripcionSerializer, LeccionSerializer
 
 # Create your views here.
 
@@ -16,3 +16,7 @@ class InscripcionCursoView(generics.ListAPIView):
     def perform_create(self, serializer):
         curso_id = self.kwargs.get('curso_id')
         serializer.save(usuario = self.request.user, curso_id = curso_id)
+
+class LeccionView(viewsets.ModelViewSet):
+    queryset = Leccion.objects.all()
+    serializer_class = LeccionSerializer

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Curso, Inscripcion
+from .models import Curso, Inscripcion, Leccion
 
 class CursoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,3 +11,9 @@ class InscripcionSerializer(serializers.ModelSerializer):
         model = Inscripcion
         field = '__all__'
         readr_only_fields = ['usuario']
+
+class LeccionSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Leccion
+        fields = '__all__'
