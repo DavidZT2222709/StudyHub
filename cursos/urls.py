@@ -1,4 +1,4 @@
-from django.urls import path,include
+from django.urls import path
 from rest_framework import routers
 from .views import CursoView, InscripcionCursoView, LeccionView, ProgresoView, progreso_curso, QuizViewSet, RespuestaViewSet, calcular_puntaje, emitir_certificado
 
