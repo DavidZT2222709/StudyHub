@@ -22,3 +22,5 @@ class RegistroSerializer(serializers.ModelSerializer):
             rol=validated_data.get('rol', 'estudiante')
         )
         return user
+    
+    
