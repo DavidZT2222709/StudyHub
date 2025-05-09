@@ -11,5 +11,3 @@ class RegistroView(generics.ListAPIView):
 class ListaUsuariosView(generics.ListAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
-
-#A

@@ -13,4 +13,3 @@ class Usuario(AbstractUser):
 
     def __str__(self):
         return f"{self.username} ({self.rol})"
-    #A

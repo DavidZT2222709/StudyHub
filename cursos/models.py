@@ -3,8 +3,6 @@ from django.conf import settings
 from usuarios.models import Usuario
 
 
-# Create your models here.
-
 class Curso(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
