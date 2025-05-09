@@ -24,3 +24,4 @@ class RegistroSerializer(serializers.ModelSerializer):
         return user
     
     
+#A

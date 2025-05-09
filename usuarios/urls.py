@@ -10,3 +10,4 @@ urlpatterns = [
     path('registro/', RegistroView.as_view(), name='registro'),
     path('lista/', ListaUsuariosView.as_view(), name='lista_usuarios'),
 ]
+#A
