@@ -1,0 +1,21 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Dashboard - StudyHub{% endblock %}
+
+{% block content %}
+  <h1>Bienvenido, {{ user.username }}</h1>
+  <h4>Tus cursos inscritos:</h4>
+
+  {% if cursos %}
+    <ul class="list-group">
+      {% for curso in cursos %}
+        <li class="list-group-item">
+          <strong>{{ curso.title }}</strong><br>
+          {{ curso.description }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No estás inscrito en ningún curso aún.</p>
+  {% endif %}
+{% endblock %}

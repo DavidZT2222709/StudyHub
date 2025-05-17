@@ -1,0 +1,25 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Bienvenido a StudyHub{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+  <h1 class="display-4">Bienvenido a <strong>StudyHub</strong></h1>
+  <p class="lead">Tu plataforma para aprender, avanzar y certificarte.</p>
+
+  <div class="mt-4">
+    <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-3">Iniciar Sesión</a>
+    <a href="{% url 'register' %}" class="btn btn-outline-success btn-lg">Registrarse</a>
+  </div>
+
+  <hr class="my-5" />
+
+  <h2>¿Qué puedes hacer con StudyHub?</h2>
+  <ul class="list-group list-group-flush w-50 mx-auto text-start">
+    <li class="list-group-item">📚 Accede a cursos de calidad</li>
+    <li class="list-group-item">✅ Lleva un seguimiento de tu progreso</li>
+    <li class="list-group-item">🧠 Realiza evaluaciones y quizzes</li>
+    <li class="list-group-item">🏅 Obtén certificados automáticamente</li>
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Registro - StudyHub{% endblock %}
+
+{% block content %}
+<h2>Crear cuenta</h2>
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">Registrarse</button>
+</form>
+{% endblock %}
