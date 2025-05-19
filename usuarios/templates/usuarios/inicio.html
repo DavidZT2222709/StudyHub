@@ -3,18 +3,226 @@
 {% block title %}Bienvenido a StudyHub{% endblock %}
 
 {% block content %}
+
+
+
 <div class="text-center mt-5">
-  <h1 class="display-4">Bienvenido a <strong>StudyHub</strong></h1>
-  <p class="lead">Tu plataforma para aprender, avanzar y certificarte.</p>
+  <div class="notification mx-auto">
+    <div class="notiborderglow"></div>
+    <div class="notiglow"></div>
+    <div class="notititle">Bienvenido a <strong>StudyHub</strong></div>
+    <div class="notibody">Tu plataforma para aprender, avanzar y certificarte.</div>
+  </div>
+
+  <style>
+/* From Uiverse.io by SouravBandyopadhyay */
+.notification {
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  position: relative;
+  width: 70rem;
+  height: 10rem;
+  background: #29292c;
+  border-radius: 1rem;
+  overflow: hidden;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  --gradient: linear-gradient(to bottom,rgb(168, 46, 255),rgb(142, 56, 240), #7e61ff);
+  --color:rgb(176, 53, 228)
+}
+
+.notification:before {
+  position: absolute;
+  content: "";
+  inset: 0.0625rem;
+  border-radius: 0.9375rem;
+  background: #18181b;
+  z-index: 2
+}
+
+.notification:after {
+  position: absolute;
+  content: "";
+  width: 0.25rem;
+  inset: 0.65rem auto 0.65rem 0.5rem;
+  border-radius: 0.125rem;
+  background: var(--gradient);
+  transition: transform 300ms ease;
+  z-index: 4;
+}
+
+.notification:hover:after {
+  transform: translateX(0.15rem)
+}
+
+.notititle {
+  color: var(--color);
+  padding: 0.9rem 0.25rem 0.4rem 1.25rem;
+  font-weight: 1000;
+  font-size: 3rem;
+  transition: transform 300ms ease;
+  z-index: 5;
+}
+
+.notification:hover .notititle {
+  transform: translateX(0.15rem)
+}
+
+.notibody {
+  color: #99999d;
+  padding: 0 3rem;
+  font-size: 2rem;
+  transition: transform 300ms ease;
+  z-index: 8;
+}
+
+.notification:hover .notibody {
+  transform: translateX(0.25rem)
+}
+
+.notiglow,
+.notiborderglow {
+  position: absolute;
+  width: 20rem;
+  height: 20rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle closest-side at center, white, transparent);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.notiglow {
+  z-index: 3;
+}
+
+.notiborderglow {
+  z-index: 1;
+}
+
+.notification:hover .notiglow {
+  opacity: 0.1
+}
+
+.notification:hover .notiborderglow {
+  opacity: 0.1
+}
+
+body {
+  background-color: black;
+}
+
+</style>
+
+
 
   <div class="mt-4">
-    <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-3">Iniciar Sesión</a>
-    <a href="{% url 'register' %}" class="btn btn-outline-success btn-lg">Registrarse</a>
+  <a href="{% url 'login' %}" class="custom-login-btn">
+  Iniciar Sesión
+  <svg viewBox="0 0 20 20" fill="currentColor" class="icon">
+    <path
+      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+    />
+  </svg>
+</a>
+
+<style>
+  .custom-login-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    background: linear-gradient(to right,rgb(157, 17, 232),rgb(242, 73, 163));
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .custom-login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+  }
+
+  .custom-login-btn .icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .custom-login-btn:hover .icon {
+    transform: translateX(4px);
+  }
+</style>
+
+<a href="{% url 'register' %}" class="rainbow-hover">
+  <span class="sp">Registrarse</span>
+</a>
+    <style>
+/* From Uiverse.io by JkHuger */
+.rainbow-hover {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ff7576;
+  background-color: #2B3044;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 12px 24px;
+  position: relative;
+  line-height: 24px;
+  border-radius: 9px;
+  box-shadow: 0px 1px 2px #2B3044, 0px 4px 16px #2B3044;
+  transform-style: preserve-3d;
+  transform: scale(var(--s, 1)) perspective(600px)
+    rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  perspective: 600px;
+  transition: transform 0.1s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.rainbow-hover:active {
+  transition: 0.3s;
+  transform: scale(0.93);
+}
+
+.sp {
+  background: linear-gradient(
+    90deg,
+rgb(107, 83, 201),
+rgb(153, 54, 240),
+rgb(197, 40, 190),
+rgb(248, 68, 209),
+rgb(213, 46, 193)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  display: block;
+}
+</style>
+
+
+
   </div>
 
   <hr class="my-5" />
 
-  <h2>¿Qué puedes hacer con StudyHub?</h2>
+ <h2 style="color: #C084FC;">¿Qué puedes hacer con StudyHub?</h2>
+
+ <style>
+    .list-group li {
+      background-color: black;
+      color: white;
+    }
+  </style>
   <ul class="list-group list-group-flush w-50 mx-auto text-start">
     <li class="list-group-item">📚 Accede a cursos de calidad</li>
     <li class="list-group-item">✅ Lleva un seguimiento de tu progreso</li>
