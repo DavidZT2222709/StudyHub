@@ -20,7 +20,7 @@ class ListaUsuariosView(generics.ListAPIView):
     serializer_class = UsuarioSerializer
 
 class CustomLoginView(LoginView):
-    template_name = 'usuarios/login.hmtl'
+    template_name = 'usuarios/login.html'
     redirect_authenticated_user = True
 
     def get_success_url(self):
