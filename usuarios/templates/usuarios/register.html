@@ -2,11 +2,299 @@
 
 {% block title %}Registro - StudyHub{% endblock %}
 
+{% block extra_css %}
+<style>
+  .register-container {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+  
+  .register-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  .register-title {
+    color: rgb(73, 77, 83);
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  
+  .register-title:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #1e88e5; /* Azul de la barra superior */
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+  }
+  
+  .form-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-section-title {
+    color: rgb(73, 77, 83);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 0.75rem;
+    width: 100%;
+    transition: all 0.3s;
+  }
+  
+  .form-control:focus {
+    border-color: #1e88e5;
+    box-shadow: 0 0 0 0.2rem rgba(30, 136, 229, 0.25);
+  }
+  
+  .btn-register {
+    background: #1e88e5; /* Azul de la barra superior */
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  
+  .btn-register:hover {
+    background: #1565c0; /* Azul más oscuro al hacer hover */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);
+  }
+  
+  .login-link {
+    color: #1e88e5; /* Azul de la barra superior */
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+  
+  .login-link:hover {
+    text-decoration: underline;
+    color: #0d47a1; /* Azul más oscuro */
+  }
+  
+  .requirements {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+  }
+  
+  .error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
+  
+  .teacher-fields {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #1e88e5; /* Azul de la barra superior */
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group {
+    flex: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<h2>Crear cuenta</h2>
-<form method="post" novalidate>
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-success">Registrarse</button>
-</form>
+<div class="container register-container">
+  <div class="register-card">
+    <h2 class="register-title">Crear cuenta en StudyHub</h2>
+    
+    <form method="post" novalidate>
+      {% csrf_token %}
+      
+     {% if form.errors %}
+    <div class="alert alert-danger">
+        <strong>Por favor, completa todos los campos obligatorios antes de continuar.</strong>
+        <ul class="mb-0">
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    {% if error != "This field is required." %}
+                        <li>{{ error }}</li>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+     {% endif %}
+      
+      <div class="form-section">
+        <h3 class="form-section-title">Información personal</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_first_name" class="form-label">Nombre</label>
+            <input type="text" name="first_name" id="id_first_name" class="form-control" 
+                   value="{{ form.first_name.value|default:'' }}" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="id_last_name" class="form-label">Apellido</label>
+            <input type="text" name="last_name" id="id_last_name" class="form-control" 
+                   value="{{ form.last_name.value|default:'' }}" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_email" class="form-label">Correo electrónico</label>
+          <input type="email" name="email" id="id_email" class="form-control" 
+                 value="{{ form.email.value|default:'' }}" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_birth_date" class="form-label">Fecha de nacimiento</label>
+          <input type="date" name="birth_date" id="id_birth_date" class="form-control" 
+                 value="{{ form.birth_date.value|default:'' }}" required>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3 class="form-section-title">Tipo de cuenta</h3>
+        
+        <div class="form-group">
+          <label class="form-label">Rol</label>
+          <div>
+            <label style="margin-right: 1.5rem;">
+              <input type="radio" name="role" value="student" checked 
+                     onchange="toggleTeacherFields(false)"> Estudiante
+            </label>
+            <label>
+              <input type="radio" name="role" value="teacher" 
+                     onchange="toggleTeacherFields(true)"> Profesor
+            </label>
+          </div>
+        </div>
+        
+        <div id="teacherFields" class="teacher-fields">
+          <div class="form-group">
+            <label for="id_specialty" class="form-label">Especialidad</label>
+            <input type="text" name="specialty" id="id_specialty" class="form-control" 
+                   value="{{ form.specialty.value|default:'' }}">
+          </div>
+          
+          <div class="form-group">
+            <label for="id_degree" class="form-label">Título profesional</label>
+            <input type="text" name="degree" id="id_degree" class="form-control" 
+                   value="{{ form.degree.value|default:'' }}">
+          </div>
+          
+          <div class="form-group">
+            <label for="id_experience" class="form-label">Años de experiencia</label>
+            <input type="number" name="experience" id="id_experience" class="form-control" 
+                   min="0" value="{{ form.experience.value|default:'' }}">
+          </div>
+          
+          <div class="form-group">
+            <label for="id_institution" class="form-label">Institución</label>
+            <input type="text" name="institution" id="id_institution" class="form-control" 
+                   value="{{ form.institution.value|default:'' }}">
+          </div>
+          
+          <div class="form-group">
+            <label for="id_bio" class="form-label">Breve biografía</label>
+            <textarea name="bio" id="id_bio" class="form-control" rows="3">{{ form.bio.value|default:'' }}</textarea>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3 class="form-section-title">Seguridad</h3>
+        
+        <div class="form-group">
+          <label for="id_username" class="form-label">Nombre de usuario</label>
+          <input type="text" name="username" id="id_username" class="form-control" 
+                 value="{{ form.username.value|default:'' }}" required maxlength="150">
+          <div class="requirements">
+            Requerido. 150 caracteres o menos. Solo letras, dígitos y @/./+/-/_
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_password1" class="form-label">Contraseña</label>
+            <input type="password" name="password1" id="id_password1" class="form-control" required>
+            <div class="requirements">
+              <ul>
+                <li>Mínimo 8 caracteres</li>
+                <li>No puede ser similar a tu información personal</li>
+                <li>Debe contener una combinación de letras, números y símbolos.</li>
+                <li>No puede ser completamente numérica</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="id_password2" class="form-label">Confirmar contraseña</label>
+            <input type="password" name="password2" id="id_password2" class="form-control" required>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-register">Registrarse</button>
+      
+      <p class="text-center mt-3">
+        ¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="login-link">Inicia sesión aquí</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<script>
+  function toggleTeacherFields(show) {
+    const teacherFields = document.getElementById('teacherFields');
+    const teacherInputs = teacherFields.querySelectorAll('input, textarea');
+    
+    if (show) {
+      teacherFields.style.display = 'block';
+      teacherInputs.forEach(input => input.required = true);
+    } else {
+      teacherFields.style.display = 'none';
+      teacherInputs.forEach(input => input.required = false);
+    }
+  }
+</script>
 {% endblock %}

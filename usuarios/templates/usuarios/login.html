@@ -1,12 +1,206 @@
 {% extends 'usuarios/base.html' %}
 
+{% load static %}
+
 {% block title %}Iniciar sesión - StudyHub{% endblock %}
 
+{% block extra_css %}
+<style>
+  /* Barra de navegación */
+  .navbar {
+    background: #1e88e5; /* Azul principal */
+    padding: 15px 0;
+  }
+  
+  .navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .btn-outline-light {
+    border-color: white;
+    color: white;
+  }
+  
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Contenedor principal */
+  .login-container {
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 0 15px;
+  }
+  
+  /* Tarjeta de login */
+  .login-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  .login-title {
+    color: rgb(73, 77, 83);
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  
+  .login-title:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #1e88e5; /* Azul principal */
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+  }
+  
+  /* Campos del formulario */
+  .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 0.75rem;
+    width: 100%;
+    transition: all 0.3s;
+    margin-bottom: 1rem;
+  }
+  
+  .form-control:focus {
+    border-color: #1e88e5; /* Azul principal */
+    box-shadow: 0 0 0 0.2rem rgba(30, 136, 229, 0.25);
+  }
+  
+  /* Botón de login - AZUL PRINCIPAL (#1e88e5) */
+  .btn-login {
+    background: #1e88e5; /* Mismo azul que la barra */
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    width: 100%;
+    margin-top: 1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  
+  .btn-login:hover {
+    background: #1e88e5; /* Azul más oscuro al hacer hover */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);
+  }
+  
+  /* Enlace de registro - AZUL PRINCIPAL */
+  .register-link {
+    color: #1e88e5; /* Mismo azul que la barra */
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+  
+  .register-link:hover {
+    text-decoration: underline;
+    color: #1e88e5; /* Azul más oscuro */
+  }
+  
+  /* Mensajes de error */
+  .error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    display: none;
+  }
+  
+  /* Logo circular - AZUL PRINCIPAL */
+  .login-logo {
+    background: #1e88e5; /* Mismo azul que la barra */
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3);
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<h2>Iniciar sesión</h2>
-<form method="post" novalidate>
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">Entrar</button>
-</form>
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="{% static 'icons/study_icon.png' %}" alt="StudyHub Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">
+    </div>
+
+    <h2 class="login-title">Iniciar sesión</h2>
+    
+    <form method="post" novalidate id="loginForm">
+      {% csrf_token %}
+      
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          <strong>Credenciales incorrectas:</strong> Por favor verifica tu usuario y contraseña.
+        </div>
+      {% endif %}
+      
+      <div class="form-group">
+        <label for="id_username" class="form-label">Usuario</label>
+        <input type="text" name="username" class="form-control" id="id_username" required>
+        <div class="error-message" id="username-error">Por favor ingresa tu usuario</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="id_password" class="form-label">Contraseña</label>
+        <input type="password" name="password" class="form-control" id="id_password" required>
+        <div class="error-message" id="password-error">Por favor ingresa tu contraseña</div>
+      </div>
+      
+      <button type="submit" class="btn btn-login">Iniciar sesión</button>
+      
+      <p class="text-center mt-3">
+        ¿No tienes una cuenta? 
+        <a href="{% url 'register' %}" class="register-link">Regístrate aquí</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Validación de campos
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    let isValid = true;
+    const username = document.getElementById('id_username');
+    const password = document.getElementById('id_password');
+    
+    if (username.value.trim() === '') {
+      document.getElementById('username-error').style.display = 'block';
+      isValid = false;
+    } else {
+      document.getElementById('username-error').style.display = 'none';
+    }
+    
+    if (password.value.trim() === '') {
+      document.getElementById('password-error').style.display = 'block';
+      isValid = false;
+    } else {
+      document.getElementById('password-error').style.display = 'none';
+    }
+    
+    if (!isValid) {
+      e.preventDefault();
+    }
+  });
+</script>
 {% endblock %}
